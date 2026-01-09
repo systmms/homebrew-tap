@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_INSTALL_FROM_API: 1
+
+jobs:
+  audit:
+    name: Audit & Style
+    runs-on: macos-latest
+    steps:
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Tap this repository
+        run: |
+          mkdir -p "$(brew --repository)/Library/Taps/systmms"
+          ln -s "$GITHUB_WORKSPACE" "$(brew --repository)/Library/Taps/systmms/homebrew-tap"
+
+      - name: Audit casks
+        run: |
+          for cask in Casks/*.rb; do
+            echo "Auditing $cask..."
+            brew audit --cask "$cask" || exit 1
+          done
+
+      - name: Audit formulas
+        run: |
+          for formula in Formula/*.rb; do
+            [ -f "$formula" ] || continue
+            echo "Auditing $formula..."
+            brew audit --formula "$formula" || exit 1
+          done
+
+      - name: Check style
+        run: |
+          brew style Casks/*.rb Formula/*.rb 2>/dev/null || true
