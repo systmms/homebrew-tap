@@ -29,18 +29,20 @@ jobs:
       - name: Audit casks
         run: |
           for cask in Casks/*.rb; do
-            echo "Auditing $cask..."
-            brew audit --cask "$cask" || exit 1
+            name=$(basename "$cask" .rb)
+            echo "Auditing cask: $name"
+            brew audit --cask "systmms/tap/$name" || exit 1
           done
 
       - name: Audit formulas
         run: |
           for formula in Formula/*.rb; do
             [ -f "$formula" ] || continue
-            echo "Auditing $formula..."
-            brew audit --formula "$formula" || exit 1
+            name=$(basename "$formula" .rb)
+            echo "Auditing formula: $name"
+            brew audit --formula "systmms/tap/$name" || exit 1
           done
 
       - name: Check style
         run: |
-          brew style Casks/*.rb Formula/*.rb 2>/dev/null || true
+          brew style "systmms/tap" 2>/dev/null || true
