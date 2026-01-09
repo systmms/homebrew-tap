@@ -3,33 +3,46 @@ cask "dsops" do
   name "dsops"
   desc "Secret management for development and production environments"
   homepage "https://github.com/systmms/dsops"
-  version "0.2.3"
+  version "0.2.4"
 
   livecheck do
     skip "Auto-generated on release."
   end
 
   binary "dsops"
+  bash_completion "completions/dsops.bash"
+  zsh_completion "completions/dsops.zsh"
+  fish_completion "completions/dsops.fish"
 
   on_macos do
     on_intel do
-      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_darwin_amd64.tar.gz"
-      sha256 "386f9a10372807ca761167bcac2b69f4777800fa00439c8bd03832ec69c81e3f"
+      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_darwin_amd64.tar.gz",
+        verified: "github.com/systmms/dsops"
+      sha256 "17f02c3b577bc0abf37719a5fe09262413246539faffc29bd8cb6545a5fa0460"
     end
     on_arm do
-      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_darwin_arm64.tar.gz"
-      sha256 "8e39ce2bab4242c79e831b743eaae76a5f2de96745a11ac3a421b9b2aab6159f"
+      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_darwin_arm64.tar.gz",
+        verified: "github.com/systmms/dsops"
+      sha256 "a53cc55bca5a939b96e2bffcb43a0befef4286e73105361be90e61f517cd2fa0"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_linux_amd64.tar.gz"
-      sha256 "0715898f9fb43377e6b8b95081bb7e1321d7a0851e31f67598d09823893b3e23"
+      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_linux_amd64.tar.gz",
+        verified: "github.com/systmms/dsops"
+      sha256 "5f059fa5f038e3d471d89f8e459185b02303406fc57b08820104b2b32ab99fec"
     end
     on_arm do
-      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_linux_arm64.tar.gz"
-      sha256 "cbd20b49213a929357b2b5a6eb60bce6d502b9d8f21044df7e1dd20e67cddaff"
+      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_linux_arm64.tar.gz",
+        verified: "github.com/systmms/dsops"
+      sha256 "432bf38c2883a2713b1094d876367776e2282feee9910b6323c4ffd4112bf2f9"
+    end
+  end
+
+  postflight do
+    if OS.mac?
+      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/dsops"]
     end
   end
 
