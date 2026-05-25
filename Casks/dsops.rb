@@ -3,7 +3,7 @@ cask "dsops" do
   name "dsops"
   desc "Secret management for development and production environments"
   homepage "https://github.com/systmms/dsops"
-  version "0.2.4"
+  version "0.2.7"
 
   livecheck do
     skip "Auto-generated on release."
@@ -16,27 +16,23 @@ cask "dsops" do
 
   on_macos do
     on_intel do
-      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_darwin_amd64.tar.gz",
-        verified: "github.com/systmms/dsops"
-      sha256 "17f02c3b577bc0abf37719a5fe09262413246539faffc29bd8cb6545a5fa0460"
+      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_darwin_amd64.tar.gz"
+      sha256 "265a25ddf30a4c751f641d67bad2235436a85d06ba31ddfd241cfa6ad06f9af6"
     end
     on_arm do
-      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_darwin_arm64.tar.gz",
-        verified: "github.com/systmms/dsops"
-      sha256 "a53cc55bca5a939b96e2bffcb43a0befef4286e73105361be90e61f517cd2fa0"
+      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_darwin_arm64.tar.gz"
+      sha256 "5079ef0f9822ab08c55472eeb170a67ed43525a6e171a19e60df3c4b580a41eb"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_linux_amd64.tar.gz",
-        verified: "github.com/systmms/dsops"
-      sha256 "5f059fa5f038e3d471d89f8e459185b02303406fc57b08820104b2b32ab99fec"
+      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_linux_amd64.tar.gz"
+      sha256 "bd9db82578204299c8cae79e351a405ee3eb2144ac018d563f9461ee002b143b"
     end
     on_arm do
-      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_linux_arm64.tar.gz",
-        verified: "github.com/systmms/dsops"
-      sha256 "432bf38c2883a2713b1094d876367776e2282feee9910b6323c4ffd4112bf2f9"
+      url "https://github.com/systmms/dsops/releases/download/v#{version}/dsops_#{version}_linux_arm64.tar.gz"
+      sha256 "a3d225dbe8d1e6fb8c72abbb8206cb0ab70cfa2ecb02ab43801234df615c950a"
     end
   end
 
